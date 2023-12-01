@@ -32,7 +32,7 @@ public class BookDao {
         }
         return bookList;
     }
-    public void getBook(String title) {
+    public Book getBook(String title) {
         try (Connection connection = (Connection) DBConnection.getConnection()) {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM book WHERE title = ?");
             ResultSet rs = ps.executeQuery("SELECT * FROM books");
@@ -48,6 +48,7 @@ public class BookDao {
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving books from the database", e);
         }
+        return null;
     }
     public void addbook(Book book) {
         try (Connection connection = (Connection) DBConnection.getConnection()) {
@@ -75,7 +76,6 @@ public class BookDao {
             e.printStackTrace();
         }
     }
-
     public void deleteBook(int id) {
         try (Connection connection = (Connection) DBConnection.getConnection()) {
             PreparedStatement ps = connection.prepareStatement("DELETE FROM books WHERE id = ?");
